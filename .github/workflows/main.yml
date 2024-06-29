@@ -19,7 +19,7 @@ jobs:
 
       - name: Get EC2 Key
         run: |
-          ssh -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com 'ssh-keyscan ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com' >> known_hosts
+          ssh -o StrictHostKeyChecking=no -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com 'ssh-keyscan ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com' >> known_hosts
   # connect_and_reset:
   #   runs-on: ubuntu-latest
 
