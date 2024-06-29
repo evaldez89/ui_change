@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  connect_and_reset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: List Files
+        run: ls -lah
+
+      - name: Connect EC2
+        run: |
+          ssh -i ${{ secrets.PEM_FILE }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }}
+
+      # copiar carpeta
+      # reiniciar el servicio
+
+      # - name: Download
+      #   run: |
+      #     git clone https://github.com/ui-changes/ui-changes.git /ui-changes
+
+      # - name: Stop And Reset
+      #   run: |
+      #     docker stop 
+      #     docker rm 
