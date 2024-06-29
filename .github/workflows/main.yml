@@ -5,22 +5,41 @@ on:
     branches: [ master ]
 
 jobs:
-  connect_and_reset:
+  initial_connection:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: List Files
+      - name: Generate Pem
+        env:
+          PEM_FILE: ${{ secrets.PEM_FILE }}
         run: |
-          pwd
-          ls -lah
-          ls -lah ~/
-          ls -lah ../
+          import os
+          with open("ec2.pem", "w") as file:
+            file.write(os.getenv("PEM_FILE"))
+          chmod 400 ec2.pem
+
+      - name: Get EC2 Key
+        run: |
+          ssh -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com 'ssh-keyscan ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com' >> known_hosts
+  # connect_and_reset:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: List Files
+  #       run: |
+  #         pwd
+  #         ls -lah
+  #         ls -lah ~/
+  #         ls -lah ../
           
 
-      - name: Connect EC2 (using environment variable)
-        run: |
-          ssh-keyscan -t rsa @ec2-54-202-15-166.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-          ssh -i ${{ secrets.PEM_KEY }} ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
+  #     - name: Connect EC2 (using environment variable)
+  #       run: |
+  #         ssh-keyscan -t rsa @ec2-54-202-15-166.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+  #         ssh -i ${{ secrets.PEM_KEY }} ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
