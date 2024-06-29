@@ -12,12 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Use Secrets (set environment variable)
-        uses: actions/checkout@v3
-        with:
-          env:
-            PEM_KEY: ${{ secrets.PEM_KEY }}  # Set environment variable
-
       - name: List Files
         run: |
           ls -lah
