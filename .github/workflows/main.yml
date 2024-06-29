@@ -13,16 +13,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Generate Pem
-        env:
-          PEM_FILE: ${{ secrets.PEM_FILE }}
-        run: |
-          import os
-          with open("ec2.pem", "w") as file:
-            file.write(os.getenv("PEM_FILE"))
-        shell: python
+        # env:
+          # PEM_FILE: ${{ secrets.PEM_FILE }}
         # run: |
-        #   touch ec2.pem
-        #   echo ${{ secrets.PEM_FILE }} | base64 -d > ec2.pem
+        #   import os
+        #   with open("ec2.pem", "w") as file:
+        #     file.write(os.getenv("PEM_FILE"))
+        # shell: python
+        run: |
+          touch ec2.pem
+          echo ${{ secrets.PEM_FILE }} | base64 -d > ec2.pem
 
       - name: List Files
         run: ls -lah
