@@ -12,20 +12,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download Private Key
-        uses: actions/download-artifact@v2
+      - name: Retrieve secret from Secrets Manager
+        uses: actions/github-script@v6
         with:
-          name: PEM_KEY
-          path: .ssh/
+          script: |
+            const { getSecret } = require('actions/secrets');
+            const pem_key = await getSecret('PEM_KEY');
+
+            fs = require('fs');
+            fs.writeFileSync('.ssh/key.pem', pem_key);
+            
+            console.log('PEM key retrieved successfully!');
+
       - name: Set permissions
-        run: chmod 400 .ssh/pem-key
+        run: chmod 400 .ssh/key.pem
       - name: List Files
         run: |
           ls -lah
           ls -lah .ssh/
       - name: Connect EC2
         run: |
-          ssh -i .ssh/pem-key ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
+          ssh -i .ssh/key.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
 
 
       # - name: Generate Pem
