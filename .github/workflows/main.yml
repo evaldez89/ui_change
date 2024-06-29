@@ -29,7 +29,8 @@ jobs:
 
       - name: Connect EC2
         run: |
-          ssh -i ec2.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }}
+          cat ec2.pem
+          ssh -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com
 
       # copiar carpeta
       # reiniciar el servicio
