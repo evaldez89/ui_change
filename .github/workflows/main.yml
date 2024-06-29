@@ -12,27 +12,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate Pem
-        env:
-          PEM_FILE: ${{ secrets.PEM_FILE }}
-        run: |
-          import os
-          with open("ec2.pem", "w") as file:
-            file.write(os.getenv("PEM_FILE"))
-        shell: python
-        # run: |
-        #   touch ec2.pem
-        #   echo ${{ secrets.PEM_FILE }} | base64 -d > ec2.pem
-
+      - name: Download Private Key
+        uses: actions/download-artifact@v2
+        with:
+          name: PEM_KEY
+          path: .ssh/
+      - name: Set permissions
+        run: chmod 400 .ssh/pem-key
       - name: List Files
-        run: ls -lah
-
+        run: |
+          ls -lah
+          ls -lah .ssh/
       - name: Connect EC2
         run: |
-          chmod 400 "ec2.pem"
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
-          ssh -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com
+          ssh -i .ssh/pem-key ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
 
+
+      # - name: Generate Pem
+      #   env:
+      #     PEM_FILE: ${{ secrets.PEM_FILE }}
+      #   run: |
+      #     import os
+      #     with open("ec2.pem", "w") as file:
+      #       file.write(os.getenv("PEM_FILE"))
+      #   shell: python
+
+      
       # copiar carpeta
       # reiniciar el servicio
 
