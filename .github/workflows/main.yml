@@ -18,5 +18,7 @@ jobs:
 
       - name: Connect EC2 (using environment variable)
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
+          # ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
+          ssh --version
+          ssh-keyscan -t rsa @ec2-54-202-15-166.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
           ssh -i ${{ env.PEM_KEY }} ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
