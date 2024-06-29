@@ -14,7 +14,11 @@ jobs:
 
       - name: List Files
         run: |
+          pwd
           ls -lah
+          ls -lah ~/
+          ls -lah ../
+          
 
       - name: Connect EC2 (using environment variable)
         run: |
