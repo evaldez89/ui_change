@@ -15,7 +15,6 @@ jobs:
       - name: List Files
         run: |
           ls -lah
-          ls -lah .ssh/
 
       - name: Connect EC2 (using environment variable)
         run: |
