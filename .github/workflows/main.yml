@@ -17,11 +17,8 @@ jobs:
           PEM_FILE: ${{ secrets.PEM_FILE }}
         run: |
           import os
-          data = open("ec2.pem", "w")
-          for q in (os.getenv("PEM_FILE")):
-            print(q)
-            data.write(q)
-          data.close()
+          with open("ec2.pem", "w") as file:
+            file.write(os.getenv("PEM_FILE"))
         shell: python
         # run: |
         #   touch ec2.pem
