@@ -18,29 +18,5 @@ jobs:
 
       - name: Connect EC2 (using environment variable)
         run: |
-          # Access the secret via the PEM_KEY environment variable
+          ssh -o ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
           ssh -i ${{ env.PEM_KEY }} ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
-
-
-
-      # - name: Generate Pem
-      #   env:
-      #     PEM_FILE: ${{ secrets.PEM_FILE }}
-      #   run: |
-      #     import os
-      #     with open("ec2.pem", "w") as file:
-      #       file.write(os.getenv("PEM_FILE"))
-      #   shell: python
-
-      
-      # copiar carpeta
-      # reiniciar el servicio
-
-      # - name: Download
-      #   run: |
-      #     git clone https://github.com/ui-changes/ui-changes.git /ui-changes
-
-      # - name: Stop And Reset
-      #   run: |
-      #     docker stop 
-      #     docker rm 
