@@ -2,10 +2,10 @@
 {
     'name': "KTI UI Changes",
 
-    'summary': "Kleiotechnology Interview Test",
+    'summary': "Kleiotechnology Interview Test.",
 
     'description': """
-Long description of module's purpose
+This module is for the interview test
     """,
 
     'author': "Kleiotechnology",
