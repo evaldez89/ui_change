@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "KTI UI Change",
+    'name': "KTI UI Changes",
 
     'summary': "Kleiotechnology Interview Test",
 
