@@ -21,9 +21,10 @@ jobs:
 
       - name: Configura AWS
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set region us-west-2
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --region
           aws configure set aws_secret_acess_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: AWS List Commands
         run: |
-          aws ssm list-commands
+          aws ssm list-commands --no-cli-pager
