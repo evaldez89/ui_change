@@ -19,9 +19,8 @@ jobs:
       - name: AWS List Commands
         run: |
           # aws ssm list-commands --no-cli-pager
-          aws ssm send-command --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[rm -rf /home/ec2-user/dockerdoo/custom/ui_change]"
-          aws ssm send-command --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[git clone https://github.com/evaldez89/ui_change.git --depth=1 --branch=master /home/ec2-user/dockerdoo/custom/ui_change]"
-          aws ssm send-command --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[docker-compose -f /home/ec2-user/dockerdoo/docker-compose.yml -f /home/ec2-user/dockerdoo/dev-standalone.yml down]"
-          aws ssm send-command --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[docker-compose -f /home/ec2-user/dockerdoo/docker-compose.yml -f /home/ec2-user/dockerdoo/dev-standalone.yml up -d]"
-          
-          ls -lah /home/ec2-user/dockerdoo/custom/
+          aws ssm send-command --no-cli-pager --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[docker-compose -f /home/ec2-user/dockerdoo/docker-compose.yml -f /home/ec2-user/dockerdoo/dev-standalone.yml down]"
+          aws ssm send-command --no-cli-pager --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[rm -rf /home/ec2-user/dockerdoo/custom/ui_change]"
+          aws ssm send-command --no-cli-pager --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[git clone https://github.com/evaldez89/ui_change.git --depth=1 --branch=master /home/ec2-user/dockerdoo/custom/ui_change]"
+          aws ssm send-command --no-cli-pager --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[sudo chown -R ec2-user:ec2-user /home/ec2-user/dockerdoo/custom/ui_change]"
+          aws ssm send-command --no-cli-pager --document-name AWS-RunShellScript --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --parameters commands="[docker-compose -f /home/ec2-user/dockerdoo/docker-compose.yml -f /home/ec2-user/dockerdoo/dev-standalone.yml up -d]"
