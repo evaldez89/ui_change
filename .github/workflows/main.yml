@@ -12,30 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate Pem
+      - name: Install AWS CLI
+        uses: aws-actions/aws-cli@v2
+
+      - name: Configura AWS
         run: |
-          echo ${{ secrets.PEM_FILE }} > ec2.pem
-          chmod 400 ec2.pem
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} set aws_secret_acess_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Get EC2 Key
+      - name: AWS List Commands
         run: |
-          ssh -o StrictHostKeyChecking=no -i ec2.pem ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com 'ssh-keyscan ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com' >> known_hosts
-  # connect_and_reset:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - name: List Files
-  #       run: |
-  #         pwd
-  #         ls -lah
-  #         ls -lah ~/
-  #         ls -lah ../
-          
-
-  #     - name: Connect EC2 (using environment variable)
-  #       run: |
-  #         ssh-keyscan -t rsa @ec2-54-202-15-166.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-  #         ssh -i ${{ secrets.PEM_KEY }} ec2-user@ec2-54-202-15-166.us-west-2.compute.amazonaws.com uptime
+          aws ssm lit-commands
