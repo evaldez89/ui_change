@@ -26,4 +26,4 @@ jobs:
 
       - name: AWS List Commands
         run: |
-          aws ssm lit-commands
+          aws ssm list-commands
