@@ -2,7 +2,7 @@
 {
     'name': "KTI UI Changes",
 
-    'summary': "Kleiotechnology Interview Test.",
+    'summary': "Kleiotechnology Interview Test. Cambio nuevo",
 
     'description': """
 This module is for the interview test
